@@ -1,0 +1,37 @@
+; All of these instructions have absolute addressing.
+
+20 02 01 ; jsr $0102
+
+2C 02 01 ; bit $0102
+4C 02 01 ; jmp $0102
+8C 02 01 ; sty $0102
+AC 02 01 ; ldy $0102
+CC 02 01 ; cpy $0102
+EC 02 01 ; cpx $0102
+
+0D 02 01 ; ora $0102
+2D 02 01 ; and $0102
+4D 02 01 ; eor $0102
+6D 02 01 ; adc $0102
+8D 02 01 ; sta $0102
+AD 02 01 ; lda $0102
+CD 02 01 ; cmp $0102
+ED 02 01 ; sbc $0102
+
+0E 02 01 ; asl $0102
+2E 02 01 ; rol $0102
+4E 02 01 ; lsr $0102
+6E 02 01 ; ror $0102
+8E 02 01 ; stx $0102
+AE 02 01 ; ldx $0102
+CE 02 01 ; dec $0102
+EE 02 01 ; inc $0102
+
+0F 02 01 ; slo $0102
+2F 02 01 ; rla $0102
+4F 02 01 ; sre $0102
+6F 02 01 ; rra $0102
+8F 02 01 ; sax $0102
+AF 02 01 ; lax $0102
+CF 02 01 ; dcp $0102
+EF 02 01 ; isb $0102

@@ -1,0 +1,10 @@
+; All of these instructions have relative addressing.
+
+10 06 ; bpl $06
+30 68 ; bmi $68
+50 04 ; bvc $04
+70 00 ; bvs $00
+90 FA ; bcc $FA
+B0 80 ; bcs $80
+D0 00 ; bne $00
+F0 00 ; beq $00

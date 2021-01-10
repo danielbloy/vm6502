@@ -1,0 +1,46 @@
+; Tests the stdout and stderr output OS requests.
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPWATCHES
+
+START:
+.start  ; This sets up a label that we can use later for the actual start code.
+
+; ********** DATA **********
+; Setup a data segment with some strings with labels that can be used later.
+ORG:1000
+.Hello_World ; Label with a comment
+STR:Hello World!
+
+.Another_String
+STR:This should also get output!
+
+; ********** SUB-ROUTINES **********
+ORG:4000
+
+.New_Line
+; Write a new line.
+LDA_# LF WRITE_A STDOUT
+RTS
+
+.Exit_Success
+LDA_#   OS_EXIT_SUCCESS
+WRITE_A OS_CALL
+
+; ********** CODE **********
+ORG: .start  ; Using a label in a directive should use the full address in order (i.e. 0600).
+
+; Use the OS request to write a string.
+LDA_# OS_STDOUT WRITE_A OS_CALL ; Request
+LDA_# 00        WRITE_A OS_CALL ; Low byte of address
+LDA_# 10        WRITE_A OS_CALL ; High byte of address
+
+JSR_a .New_Line ; A full address used here should be Low byte, High Byte.
+
+; Use the label to output the address.
+LDA_# OS_STDERR        WRITE_A OS_CALL ; Request
+LDA_# >.Another_String WRITE_A OS_CALL ; Low byte of address
+LDA_# <.Another_String WRITE_A OS_CALL ; High byte of address
+
+JSR_a .New_Line
+JMP_a .Exit_Success

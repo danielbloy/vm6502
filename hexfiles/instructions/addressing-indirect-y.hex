@@ -1,0 +1,18 @@
+; All of these instructions have indirect Y-indexed addressing.
+
+11 00 ; ora ($00),Y
+31 00 ; and ($00),Y
+51 00 ; eor ($00),Y
+71 00 ; adc ($00),Y
+91 00 ; sta ($00),Y
+B1 00 ; lda ($00),Y
+D1 00 ; cmp ($00),Y
+F1 00 ; sbc ($00),Y
+
+13 00 ; slo ($00),Y
+33 00 ; rla ($00),Y
+53 00 ; sre ($00),Y
+73 00 ; rra ($00),Y
+B3 00 ; lax ($00),Y
+D3 00 ; dcp ($00),Y
+F3 00 ; isb ($00),Y

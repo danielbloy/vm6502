@@ -1,0 +1,7 @@
+; All of these instructions have zero-page Y-indexed addressing.
+
+96 00 ; stx $00,Y
+B6 00 ; ldx $00,Y
+
+97 00 ; sax $00,Y
+B7 00 ; lax $00,Y

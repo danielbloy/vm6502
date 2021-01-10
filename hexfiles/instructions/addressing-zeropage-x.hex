@@ -1,0 +1,27 @@
+; All of these instructions have zero-page X-indexed addressing.
+
+94 00 ; sty $00,X
+B4 00 ; ldy $00,X
+
+15 00 ; ora $00,X
+35 00 ; and $00,X
+55 00 ; eor $00,X
+75 00 ; adc $00,X
+95 00 ; sta $00,X
+B5 00 ; lda $00,X
+D5 00 ; cmp $00,X
+F5 00 ; sbc $00,X
+
+16 00 ; asl $00,X
+36 00 ; rol $00,X
+56 00 ; lsr $00,X
+76 00 ; ror $00,X
+D6 00 ; dec $00,X
+F6 00 ; inc $00,X
+
+17 00 ; slo $00,X
+37 00 ; rla $00,X
+57 00 ; sre $00,X
+77 00 ; rra $00,X
+D7 00 ; dcp $00,X
+F7 00 ; isb $00,X

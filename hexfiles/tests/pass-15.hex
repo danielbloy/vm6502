@@ -1,0 +1,104 @@
+; Tests the use of the integer to string OS functions
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPWATCHES
+
+#define ; This will result in a duff entry in the user substitution table.
+
+START:
+.start  ; This sets up a label that we can use later for the actual start code.
+
+; ********** DATA **********
+; Setup a data segment with some strings with labels that can be used later.
+ORG:1000
+.number
+00 00 00 00
+.buffer ; Buffer to hold converting .number to a string and it is 31 (1F) characters long (including the null terminator).
+STR:123456789012345678901234567890
+#DEFINE BUF_SIZE 1F  ; We can define the size of the buffer with a name
+
+; Numbers
+.first
+str:255
+.second
+str:48762187
+.third
+str:-134534
+.fourth
+str:-1
+
+; ********** SUB-ROUTINES **********
+ORG:4000
+
+.new_line
+LDA_# LF WRITE_A STDOUT
+RTS
+
+; Use the label to output the address.
+.print_buffer
+LDA_# OS_STDOUT  WRITE_A OS_CALL ; Request
+LDA_# >.buffer   WRITE_A OS_CALL ; Low byte of address
+LDA_# <.buffer   WRITE_A OS_CALL ; High byte of address
+JSR_a .new_line
+RTS
+
+; Convert 32-bit signed number to a string
+.int_to_str
+LDA_# OS_INT32_TO_STR     WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+RTS
+
+.exit_success
+LDA_#   OS_EXIT_SUCCESS
+WRITE_A OS_CALL
+
+; ********** CODE **********
+ORG: .start
+
+; Covert the string to a number
+LDA_# OS_STR_TO_INT32 WRITE_A OS_CALL
+LDA_# >.first         WRITE_A OS_CALL
+LDA_# <.first         WRITE_A OS_CALL
+LDA_# >.number        WRITE_A OS_CALL
+LDA_# <.number        WRITE_A OS_CALL
+JSR_a .int_to_str
+JSR_a .print_buffer
+
+; Covert the string to a number
+LDA_# OS_STR_TO_INT32 WRITE_A OS_CALL
+LDA_# >.second        WRITE_A OS_CALL
+LDA_# <.second        WRITE_A OS_CALL
+LDA_# >.number        WRITE_A OS_CALL
+LDA_# <.number        WRITE_A OS_CALL
+JSR_a .int_to_str
+JSR_a .print_buffer
+
+; Covert the string to a number
+LDA_# OS_STR_TO_INT32 WRITE_A OS_CALL
+LDA_# >.third         WRITE_A OS_CALL
+LDA_# <.third         WRITE_A OS_CALL
+LDA_# >.number        WRITE_A OS_CALL
+LDA_# <.number        WRITE_A OS_CALL
+JSR_a .int_to_str
+JSR_a .print_buffer
+
+; Covert the string to a number
+LDA_# OS_STR_TO_INT32 WRITE_A OS_CALL
+LDA_# >.fourth        WRITE_A OS_CALL
+LDA_# <.fourth        WRITE_A OS_CALL
+LDA_# >.number        WRITE_A OS_CALL
+LDA_# <.number        WRITE_A OS_CALL
+JSR_a .int_to_str
+JSR_a .print_buffer
+
+JMP_a .exit_success

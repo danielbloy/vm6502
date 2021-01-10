@@ -1,0 +1,40 @@
+; Tests the use of a relative jump using a label
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPWATCHES
+
+START:
+.start  ; This sets up a label that we can use later for the actual start code.
+
+; ********** DATA **********
+; Setup a data segment with some strings with labels that can be used later.
+ORG:1000
+.my_label
+STR:Using a relative jump to a label!
+STR:Testing for overrun!
+
+; ********** SUB-ROUTINES **********
+ORG:4000
+
+.New_Line
+LDA_# LF WRITE_A STDOUT
+RTS
+
+.Exit_Success
+LDA_#   OS_EXIT_SUCCESS
+WRITE_A OS_CALL
+
+; ********** CODE **********
+ORG: .start
+
+LDX_# FF
+
+; Use the OS request to write a string character by character.
+.print_string
+INX
+LDA_a,X .my_label
+WRITE_A STDOUT
+BNE ^.print_string
+
+JSR_a .New_Line
+JMP_a .eXIt_SuCCesS ; Labels are case-insensitive.

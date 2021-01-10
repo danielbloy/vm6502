@@ -1,0 +1,30 @@
+; This is basic file that loads a simple program that modifies the screen and also pre-populates that screen with
+; some text.
+
+#NOFINALSTATE
+#SCREENMODE1 ; Put the screen in 64 x 16 mode.
+
+START:
+a9 'D'    ; LDA 'D'
+8d 00 02  ; STA $0200
+a9 'a'    ; LDA 'a'
+8d 01 02  ; STA $0201
+a9 'n'    ; LDA 'n'
+8d 02 02  ; STA $0202
+a9 'i'    ; LDA 'i'
+8d 03 02  ; STA $0203
+a9 'e'    ; LDA 'e'
+8d 04 02  ; STA $0204
+a9 'l'    ; LDA 'l'
+8d 05 02  ; STA $0205
+
+; Now print the screen.
+a9 03     ; LDA #$03
+85 FF     ; STA $FF
+STOP:
+
+; Load some text into the screen
+ORG: 240
+STRING: Hello world!
+ORG: 280
+STR:  Hello all!

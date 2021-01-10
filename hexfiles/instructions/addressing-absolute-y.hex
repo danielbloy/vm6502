@@ -1,0 +1,22 @@
+; All of these instructions have absolute Y addressing.
+
+19 02 01 ; ora $0102,Y
+39 02 01 ; and $0102,Y
+59 02 01 ; eor $0102,Y
+79 02 01 ; adc $0102,Y
+99 02 01 ; sta $0102,Y
+B9 02 01 ; lda $0102,Y
+D9 02 01 ; cmp $0102,Y
+F9 02 01 ; sbc $0102,Y
+
+1B 02 01 ; slo $0102,Y
+3B 02 01 ; rla $0102,Y
+5B 02 01 ; sre $0102,Y
+7B 02 01 ; rra $0102,Y
+BB 02 01 ; lax $0102,Y
+DB 02 01 ; dcp $0102,Y
+FB 02 01 ; isb $0102,Y
+
+BE 02 01 ; ldx $0102,Y
+
+BF 02 01 ; lax $0102,Y

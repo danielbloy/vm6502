@@ -1,0 +1,25 @@
+; Tests out the exit ability of the OS request with success.
+
+#NOFINALSTATE
+#NOAUTOSTOP  ; We want to test the OS stop.
+
+ORG: 800
+
+START:
+a9 'E'    ; LDA 'E'
+85 FA     ; STA $FA ; Write to stdout
+a9 'x'    ; LDA 'x'
+85 FA     ; STA $FA ; Write to stdout
+a9 'i'    ; LDA 'i'
+85 FA     ; STA $FA ; Write to stdout
+a9 't'    ; LDA 't'
+85 FA     ; STA $FA ; Write to stdout
+
+; Write a new line.
+a9 10     ; LDA LF
+85 FA     ; STA $FA ; Write to stdout
+
+a9 FF     ; LDA $FF - SUCCESS
+85 FF     ; STA $FF
+
+4C 00 08  ; JMP $0800

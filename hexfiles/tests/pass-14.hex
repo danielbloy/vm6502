@@ -1,0 +1,146 @@
+; Tests the use of the integer to string OS functions
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPWATCHES
+
+#define ; This will result in a duff entry in the user substitution table.
+
+START:
+.start  ; This sets up a label that we can use later for the actual start code.
+
+; ********** DATA **********
+; Setup a data segment with some strings with labels that can be used later.
+ORG:1000
+.buffer ; This holds the string result and is 31 (1F) characters long (including the null terminator).
+STR:123456789012345678901234567890
+#DEFINE BUF_SIZE 1F  ; We can define the size of the buffer with a name
+STR:Testing for overrun!
+
+; Numbers
+.8-bit
+FE
+.16-bit
+DC FE
+.24-bit
+BA DC FE
+.32-bit
+98 BA DC FE
+
+; ********** SUB-ROUTINES **********
+ORG:4000
+
+
+.new_line
+LDA_# LF WRITE_A STDOUT
+RTS
+
+; Use the label to output the address.
+.print_buffer
+LDA_# OS_STDOUT  WRITE_A OS_CALL ; Request
+LDA_# >.buffer   WRITE_A OS_CALL ; Low byte of address
+LDA_# <.buffer   WRITE_A OS_CALL ; High byte of address
+JSR_a .new_line
+RTS
+
+.exit_success
+LDA_#   OS_EXIT_SUCCESS
+WRITE_A OS_CALL
+
+; ********** CODE **********
+ORG: .start
+
+; Unsigned 8-bit conversion and output
+LDA_# OS_UINT8_TO_STR WRITE_A OS_CALL
+LDA_# >.buffer        WRITE_A OS_CALL
+LDA_# <.buffer        WRITE_A OS_CALL
+LDA_# BUF_SIZE        WRITE_A OS_CALL
+LDA_a >.8-bit <.8-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Signed 8-bit conversion and output
+LDA_# OS_INT8_TO_STR  WRITE_A OS_CALL
+LDA_# >.buffer        WRITE_A OS_CALL
+LDA_# <.buffer        WRITE_A OS_CALL
+LDA_# BUF_SIZE        WRITE_A OS_CALL
+LDA_a >.8-bit <.8-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Unsigned 16-bit conversion and output
+LDA_# OS_UINT16_TO_STR    WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.16-bit <.16-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.16-bit <.16-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Signed 16-bit conversion and output
+LDA_# OS_INT16_TO_STR     WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.16-bit <.16-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.16-bit <.16-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Unsigned 24-bit conversion and output
+LDA_# OS_UINT24_TO_STR    WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Signed 24-bit conversion and output
+LDA_# OS_INT24_TO_STR     WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.24-bit <.24-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Unsigned 32-bit conversion and output
+LDA_# OS_UINT32_TO_STR    WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+; Signed 32-bit conversion and output
+LDA_# OS_INT32_TO_STR     WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+INX
+LDA_a,x >.32-bit <.32-bit WRITE_A OS_CALL
+JSR_a .print_buffer
+
+JMP_a .exit_success

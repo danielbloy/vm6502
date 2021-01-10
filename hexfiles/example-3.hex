@@ -1,0 +1,54 @@
+; This is basic file uses the memory mapped console input and output.
+#NOFINALSTATE
+
+START:
+a9 'H'    ; LDA 'H'
+85 FA     ; STA $FA ; Write to stdout
+a9 'e'    ; LDA 'e'
+85 FA     ; STA $FA ; Write to stdout
+a9 'l'    ; LDA 'l'
+85 FA     ; STA $FA ; Write to stdout
+85 FA     ; STA $FA ; Write to stdout
+a9 'o'    ; LDA 'o'
+85 FA     ; STA $FA ; Write to stdout
+a9 ' '    ; LDA ' '
+85 FA     ; STA $FA ; Write to stdout
+a9 'W'    ; LDA 'W'
+85 FA     ; STA $FA ; Write to stdout
+a9 'o'    ; LDA 'o'
+85 FA     ; STA $FA ; Write to stdout
+a9 'r'    ; LDA 'r'
+85 FA     ; STA $FA ; Write to stdout
+a9 'l'    ; LDA 'l'
+85 FA     ; STA $FA ; Write to stdout
+a9 'd'    ; LDA 'd'
+85 FA     ; STA $FA ; Write to stdout
+a9 '!'    ; LDA '!'
+85 FA     ; STA $FA ; Write to stdout
+
+; Write a new line.
+a9 10     ; LDA LF
+85 FA     ; STA $FA ; Write to stdout
+
+; Enter name and then output it to stderr
+a9 'N'    ; LDA 'N'
+85 FA     ; STA $FA ; Write to stdout
+a9 'a'    ; LDA 'a'
+85 FA     ; STA $FA ; Write to stdout
+a9 'm'    ; LDA 'm'
+85 FA     ; STA $FA ; Write to stdout
+a9 'e'    ; LDA 'e'
+85 FA     ; STA $FA ; Write to stdout
+a9 ':'    ; LDA ':'
+85 FA     ; STA $FA ; Write to stdout
+
+; Input a name.
+A5 FA ; LDA $FA - blocking read.
+85 FB ; STA $FB ; Write to stderr
+
+; Finish writing to stderr in non blocking.
+A5 FB ; LDA $FB - non-blocking read.
+85 FB ; STA $FB ; Write to stderr
+D0 FA ; BNE $FS - Branch not zero -6 to non-blocking read.
+
+STOP:

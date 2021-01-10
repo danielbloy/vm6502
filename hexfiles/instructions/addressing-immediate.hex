@@ -1,0 +1,15 @@
+; All of these instructions have immediate addressing.
+
+A0 00 ; ldy #$00
+C0 00 ; cpy #$00
+E0 00 ; cpx #$00
+
+A2 00 ; ldx #$00
+
+09 00 ; ora #$00
+29 00 ; and #$00
+49 00 ; eor #$00
+69 00 ; adc #$00
+A9 00 ; lda #$00
+C9 00 ; cmp #$00
+E9 00 ; sbc #$00

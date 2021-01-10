@@ -1,0 +1,24 @@
+; tests the ability to do substitutions to make writing the machine code a bit easier.
+#NOFINALSTATE
+#NOAUTOSTOP
+
+ORG: 800
+
+START:
+LDA_# 'H' WRITE_A STDOUT
+LDA_# 'i' WRITE_A STDOUT
+LDA_# ' ' WRITE_A STDOUT
+LDA_# 't' WRITE_A STDOUT
+LDA_# 'h' WRITE_A STDOUT
+LDA_# 'e' WRITE_A STDOUT
+LDA_# 'r' WRITE_A STDOUT
+LDA_# 'e' WRITE_A STDOUT
+LDA_# '!' WRITE_A STDOUT
+
+; Write a new line.
+LDA_# LF WRITE_A STDOUT
+
+LDA_# OS_EXIT_SUCCESS WRITE_A OS_CALL
+
+JMP_a 00 08  ; JMP $0800
+

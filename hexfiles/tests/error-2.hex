@@ -1,0 +1,5 @@
+; This file should error because some of the data is not a valid hex numbers.
+
+a9 01 8d 00 02 a9 05 8d 01 02 a9 08 8d 02 02 ; optional comment.
+a9 01 8d FH 02 a9 05 8d 01 02 a9 08 8d 02 02 ; optional comment.
+

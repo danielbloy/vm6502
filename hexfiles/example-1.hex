@@ -1,0 +1,26 @@
+; This is basic file that loads a simple program and demonstrates setting breakpoints
+; LDA #$01    $a9 $01
+; STA $0200   $8d $00 $02
+; LDA #$05    $a9 $05
+; STA $0201   $8d $01 $02
+; LDA #$08    $a9 $08
+; STA $0202   $8d $02 $02
+
+#INFO ; Set the output level to info.
+
+WATCH:400-a
+  ORG: 400
+START:
+a9 01    ; LDA #$01
+BREAK: ; This will break at the next instruction.
+8d 00 02 ; STA $0200
+a9 05    ; LDA #$05
+8d 01 02 ; STA $0201
+a9 08    ; LDA #$08  ; This instruction has address $040A
+8d 02 02 ; STA $0202
+STOP:
+
+BREAK:040A ; Break at the instruction STA $0202
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPSCREEN

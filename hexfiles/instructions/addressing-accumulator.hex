@@ -1,0 +1,6 @@
+; All of these instructions have accumulator addressing.
+
+0A ; asl
+2A ; rol
+4A ; lsr
+6A ; ror

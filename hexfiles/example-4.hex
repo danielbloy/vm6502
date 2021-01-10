@@ -1,0 +1,131 @@
+; The following example program performs some addition and subtraction using
+; the 6502 instructions but also makes use of the OS features to output them.
+
+#NOFINALSTATE
+#NOAUTOSTOP
+#DUMPWATCHES
+
+START:
+.start ; This sets up a label that we can use later for the actual start code.
+
+; ********** DATA **********
+ORG:1000
+
+; Space to hold a 32-bit number that can be converted into a string.
+.number
+00
+.number2
+00 00 00
+
+.buffer ; Buffer to hold converting a 32-bit signed number to a string using the OS. It is 31 (1F) characters long (including the null terminator).
+STR:123456789012345678901234567890
+#DEFINE BUF_SIZE 1F  ; We can define the size of the buffer with a name
+
+.8-bit_signed
+40
+60
+50
+45
+1E
+00
+
+.8-bit-unsigned-message
+STR:Add some unsigned 8-bit numbers:
+
+.8-bit-signed-message
+STR:Add some signed 8-bit numbers:
+
+; ********** SUB-ROUTINES **********
+ORG:4000
+
+; This prints out a new line
+.new_line
+PHA
+LDA_# LF WRITE_A STDOUT
+PLA
+RTS
+
+; Use the label to output the address.
+.print_buffer
+PHA
+LDA_# OS_STDOUT  WRITE_A OS_CALL ; Request
+LDA_# >.buffer   WRITE_A OS_CALL ; Low byte of address
+LDA_# <.buffer   WRITE_A OS_CALL ; High byte of address
+JSR_a .new_line
+PLA
+RTS
+
+; Use the OS to convert 32-bit signed number to a string
+.int_to_str
+PHA
+TXA
+PHA
+LDA_# OS_INT32_TO_STR     WRITE_A OS_CALL
+LDA_# >.buffer            WRITE_A OS_CALL
+LDA_# <.buffer            WRITE_A OS_CALL
+LDA_# BUF_SIZE            WRITE_A OS_CALL
+LDX_# 0
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+INX
+LDA_a,x >.number <.number WRITE_A OS_CALL
+PLA
+TAX
+PLA
+RTS
+
+.exit_success
+LDA_#   OS_EXIT_SUCCESS
+WRITE_A OS_CALL
+
+; ********** CODE **********
+ORG: .start
+
+; ********** Add some unsigned 8-bit numbers **********
+LDA_# OS_STDOUT                  WRITE_A OS_CALL ; Request
+LDA_# >.8-bit-unsigned-message   WRITE_A OS_CALL ; Low byte of address
+LDA_# <.8-bit-unsigned-message   WRITE_A OS_CALL ; High byte of address
+JSR_a .new_line
+
+LDA_# 00
+LDX_# 00
+.adc_8-bit_numbers
+CLC
+ADC_a,X .8-bit_signed
+
+; Store number and print it out.
+STA_a .number
+
+; If the carry bit is set then update the upper byte
+BCC 7
+LDY_a .number2
+INY
+STY_a .number2
+
+; Convert the number to a string and print
+JSR_a .int_to_str
+JSR_a .print_buffer
+
+; Now check if the next number is zero and finish if it is.
+INX
+LDY_a,X .8-bit_signed
+BNE ^.adc_8-bit_numbers
+
+JSR_a .new_line
+
+; ********** Add some signed 8-bit numbers and determine when they exceed -128 to 127 **********
+LDA_# OS_STDOUT                WRITE_A OS_CALL ; Request
+LDA_# >.8-bit-signed-message   WRITE_A OS_CALL ; Low byte of address
+LDA_# <.8-bit-signed-message   WRITE_A OS_CALL ; High byte of address
+JSR_a .new_line
+; TODO:
+
+
+; TODO: Add some unsigned 16-bit numbers.
+; TODO: Add some signed 16-bit numbers
+
+
+JMP_a .exit_success

@@ -1,0 +1,27 @@
+; Loads some strings at the default load address but loads a program to execute
+; at a different location.
+
+#NOFINALSTATE
+#DUMPWATCHES
+#DUMPCPU
+
+WATCH:200
+WATCH:400
+WATCH:600-S
+
+; Strings get loaded at the current load address up to the final character on the line
+; (a CR, LF or NULL indicates the end of the string). The string is then terminated
+; with a null character in memory and the load address advanced one byte. In this
+; example the strings are loaded one after the other.
+STR:This is a string that will be null terminated.
+
+; LDA #$01    $a9 $01
+; STA $0200   $8d $00 $02
+; LDA #$05    $a9 $05
+; STA $0201   $8d $01 $02
+; LDA #$08    $a9 $08
+; STA $0202   $8d $02 $02
+ORG: 400
+START:
+HEX: a9 01 8d 00 02 a9 05 8d 01 02 a9 08 8d 02 02; optional comment.
+STOP:

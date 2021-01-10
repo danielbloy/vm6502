@@ -1,0 +1,16 @@
+; This is basic single line file that loads this assembler into the load Address $0400
+; and defaults the start address to $0400.
+; LDA #$01    $a9 $01
+; STA $0200   $8d $00 $02
+; LDA #$05    $a9 $05
+; STA $0201   $8d $01 $02
+; LDA #$08    $a9 $08
+; STA $0202   $8d $02 $02
+
+#NOFINALSTATE
+#DUMPWATCHES
+#DUMPCPU
+
+WATCH:200
+WATCH:400
+0400: a9 01 8d 00 02 a9 05 8d 01 02 a9 08 8d 02 02 ; optional comment.

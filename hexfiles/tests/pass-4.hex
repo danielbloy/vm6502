@@ -1,0 +1,22 @@
+; This is basic file that loads this assembler into the default load Address
+; LDA #$01    $a9 $01
+; STA $0200   $8d $00 $02
+; LDA #$05    $a9 $05
+; STA $0201   $8d $01 $02
+; LDA #$08    $a9 $08
+; STA $0202   $8d $02 $02
+
+#NOFINALSTATE
+#DUMPWATCHES
+#DUMPCPU
+WATCH: 200
+WATCH: 600
+
+a9 01    ; LDA #$01   comment and no HEX specification so sets implicit start address.
+8d 00 02 ; STA $0200
+
+  a9 05    ; LDA #$05
+  8d 01 02 ; STA $0201
+
+a9 08    ; LDA #$08
+8d 02 02 ; STA $0202

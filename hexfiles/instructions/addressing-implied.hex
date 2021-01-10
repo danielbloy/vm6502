@@ -1,0 +1,29 @@
+; All of these instructions have implied addressing.
+08 ; php
+18 ; clc
+28 ; plp
+38 ; sec
+48 ; pha
+58 ; cli
+68 ; pla
+78 ; sei
+88 ; dey
+98 ; tya
+A8 ; tay
+B8 ; clv
+C8 ; iny
+D8 ; cld
+E8 ; inx
+F8 ; sed
+
+8A ; txa
+9A ; txs
+AA ; tax
+BA ; tsx
+CA ; dex
+EA ; nop
+
+40 ; rti
+60 ; rts
+
+00 ; brk

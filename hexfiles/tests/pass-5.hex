@@ -1,0 +1,21 @@
+ ; A more complex example showing some of the other commands.
+
+#NOFINALSTATE
+#DUMPWATCHES
+#DUMPCPU
+
+  ORG: 800    ; also sets the start address if it hasn't already been specified.
+  STR:Hello world!
+700:   ; same as ORG: 700
+
+  HEX: a9 01 8d 00 02 a9 05 8d 01 02 a9 08 8d 02 02 ; Loaded from 600
+  701: 0A ; Overwrites $701 with 0A
+  706: 0B ; Overwrites $706 with 0B
+  70B: 0C ; Overwrites $70B with 0C
+
+START: 700  ; Sets the start address
+STOP: 70A ; Sets the stop address
+
+WATCH:200
+WATCH:700
+WATCH:800-S

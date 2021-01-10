@@ -1,0 +1,26 @@
+; All of these instructions have absolute X addressing.
+
+BC 02 01 ; ldy $0102,X
+
+1D 02 01 ; ora $0102,X
+3D 02 01 ; and $0102,X
+5D 02 01 ; eor $0102,X
+7D 02 01 ; adc $0102,X
+9D 02 01 ; sta $0102,X
+BD 02 01 ; lda $0102,X
+DD 02 01 ; cmp $0102,X
+FD 02 01 ; sbc $0102,X
+
+1E 02 01 ; asl $0102,X
+3E 02 01 ; rol $0102,X
+5E 02 01 ; lsr $0102,X
+7E 02 01 ; ror $0102,X
+DE 02 01 ; dec $0102,X
+FE 02 01 ; inc $0102,X
+
+1F 02 01 ; slo $0102,X
+3F 02 01 ; rla $0102,X
+5F 02 01 ; sre $0102,X
+7F 02 01 ; rra $0102,X
+DF 02 01 ; dcp $0102,X
+FF 02 01 ; isb $0102,X

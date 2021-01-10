@@ -1,0 +1,19 @@
+; All of these instructions have X-indexed indirect addressing.
+
+01 00 ; ora ($00,X)
+21 00 ; and ($00,X)
+41 00 ; eor ($00,X)
+61 00 ; adc ($00,X)
+81 00 ; sta ($00,X)
+A1 00 ; lda ($00,X)
+C1 00 ; cmp ($00,X)
+E1 00 ; sbc ($00,X)
+
+03 00 ; slo ($00,X)
+23 00 ; rla ($00,X)
+43 00 ; sre ($00,X)
+63 00 ; rra ($00,X)
+83 00 ; sax ($00,X)
+A3 00 ; lax ($00,X)
+C3 00 ; dcp ($00,X)
+E3 00 ; isb ($00,X)
