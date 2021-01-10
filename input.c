@@ -162,38 +162,38 @@ bool substitute(char buffer[]) {
     } substitutions[] = {
         // ASCII codes
         {"NULL", "00"},
-        {"NUL", "00"}, // Null
-        {"SOH", "01"}, // Start of heading
-        {"STX", "02"}, // Start of text - not to be confused with STX instruction
-        {"ETX", "03"}, // End of text
-        {"EOT", "04"}, // End of transmit
-        {"ENQ", "05"}, // Enquiry
-        {"ACK", "06"}, // Acknowledge
-        {"BEL", "07"}, // Bell
-        {"BS", "08"},  // Backspace
-        {"HT", "09"},  // Horizontal tab
-        {"LF", "0A"},  // Line feed
-        {"VT", "0B"},  // Vertical tab
-        {"FF", "0C"},  // Form feed
-        {"CR", "0D"},  // Carriage return
-        {"SO", "1E"},  // Shift out
-        {"SI", "0F"},  // shift in
-        {"DLE", "10"}, // Data line escape
-        {"DC1", "11"}, // Device control 1
-        {"DC2", "12"}, // Device control 2
-        {"DC3", "13"}, // Device control 3
-        {"DC4", "14"}, // Device control 4
-        {"NAK", "15"}, // Negative acknowledge
-        {"SYN", "16"}, // Synchronous idle
-        {"ETB", "17"}, // End of transmit block
-        {"CAN", "18"}, // Cancel
-        {"EM", "19"},  // End of medium
-        {"SUB", "1A"}, // Substitute
-        {"ESC", "1B"}, // Escape
-        {"FS", "1C"},  // File separator
-        {"GS", "1D"},  // Group separator
-        {"RS", "1E"},  // Record separator
-        {"US", "1F"},  // Unit separator
+        {"NUL",  "00"}, // Null
+        {"SOH",  "01"}, // Start of heading
+        {"STX",  "02"}, // Start of text - not to be confused with STX instruction
+        {"ETX",  "03"}, // End of text
+        {"EOT",  "04"}, // End of transmit
+        {"ENQ",  "05"}, // Enquiry
+        {"ACK",  "06"}, // Acknowledge
+        {"BEL",  "07"}, // Bell
+        {"BS",   "08"}, // Backspace
+        {"HT",   "09"}, // Horizontal tab
+        {"LF",   "0A"}, // Line feed
+        {"VT",   "0B"}, // Vertical tab
+        {"FOF",  "0C"}, // Form feed, can't use FF as it is a valid hex number.
+        {"CR",   "0D"}, // Carriage return
+        {"SO",   "1E"}, // Shift out
+        {"SI",   "0F"}, // shift in
+        {"DLE",  "10"}, // Data line escape
+        {"DC1",  "11"}, // Device control 1 - okay even though it is a valid hex number as hex numbers should only be 2 digits long
+        {"DC2",  "12"}, // Device control 2 - okay even though it is a valid hex number as hex numbers should only be 2 digits long
+        {"DC3",  "13"}, // Device control 3 - okay even though it is a valid hex number as hex numbers should only be 2 digits long
+        {"DC4",  "14"}, // Device control 4 - okay even though it is a valid hex number as hex numbers should only be 2 digits long
+        {"NAK",  "15"}, // Negative acknowledge
+        {"SYN",  "16"}, // Synchronous idle
+        {"ETB",  "17"}, // End of transmit block
+        {"CAN",  "18"}, // Cancel
+        {"EM",   "19"}, // End of medium
+        {"SUB",  "1A"}, // Substitute
+        {"ESC",  "1B"}, // Escape
+        {"FS",   "1C"}, // File separator
+        {"GS",   "1D"}, // Group separator
+        {"RS",   "1E"}, // Record separator
+        {"US",   "1F"}, // Unit separator
 
         // Operating system codes
         {"STDIN_BLOCK",   "FA"},
